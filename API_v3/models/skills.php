@@ -37,10 +37,7 @@ if ($row_count == 0) {
 			$query = "INSERT INTO `skills` (`id`, `name`) VALUES ('$id', '$name')";
 			$result = $conn->query($query);
 			
-			$skills_array[] = array(
-							'id'=>$id, 
-							'name'=>$name
-						);
+			$skills_array[] = array('id'=>$id, 'name'=>$name);
 		}
 	}
 }	
