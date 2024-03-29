@@ -1,11 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 4.9.10
--- https://www.phpmyadmin.net/
---
--- Хост: localhost
--- Время создания: Мар 14 2023 г., 11:14
--- Версия сервера: 8.0.29
--- Версия PHP: 7.4.30
+-- MYSQL
+-- version 8.0.36
+-- Время создания: Мар 30 2024 г., 01:14
+-- Версия сервера: 8.0.36
+-- Версия PHP: 8.1.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -13,31 +10,12 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- База данных: `freelancehunt`
---
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `category`
---
+-- База данных: `API_v3`
 
 CREATE TABLE `category` (
   `project` int NOT NULL,
   `skill` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `projects`
---
 
 CREATE TABLE `projects` (
   `id` int NOT NULL,
@@ -50,31 +28,16 @@ CREATE TABLE `projects` (
   `employer_last_name` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `skills`
---
-
 CREATE TABLE `skills` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `status`
---
 
 CREATE TABLE `status` (
   `id` int NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Дамп данных таблицы `status`
---
 
 INSERT INTO `status` (`id`, `name`) VALUES
 (11, 'Відкрито для пропозицій'),
@@ -93,55 +56,26 @@ INSERT INTO `status` (`id`, `name`) VALUES
 (33, 'Закрито модератором'),
 (34, 'Закрито через бюджет');
 
---
--- Индексы сохранённых таблиц
---
-
---
--- Индексы таблицы `category`
---
 ALTER TABLE `category`
   ADD PRIMARY KEY (`project`,`skill`),
   ADD KEY `FK_skill` (`skill`),
   ADD KEY `FK_project` (`project`);
 
---
--- Индексы таблицы `projects`
---
 ALTER TABLE `projects`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_status` (`status`);
 
---
--- Индексы таблицы `skills`
---
 ALTER TABLE `skills`
   ADD PRIMARY KEY (`id`);
 
---
--- Индексы таблицы `status`
---
 ALTER TABLE `status`
   ADD PRIMARY KEY (`id`);
 
---
--- Ограничения внешнего ключа сохраненных таблиц
---
-
---
--- Ограничения внешнего ключа таблицы `category`
---
 ALTER TABLE `category`
   ADD CONSTRAINT `FK_project` FOREIGN KEY (`project`) REFERENCES `projects` (`id`),
   ADD CONSTRAINT `FK_skill` FOREIGN KEY (`skill`) REFERENCES `skills` (`id`);
 
---
--- Ограничения внешнего ключа таблицы `projects`
---
 ALTER TABLE `projects`
   ADD CONSTRAINT `FK_status` FOREIGN KEY (`status`) REFERENCES `status` (`id`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
